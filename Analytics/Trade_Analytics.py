@@ -13,10 +13,10 @@ def sharpe_calc(df):
         df["Return"]=df["PnL"]/df["Price"]
         df=df[df.PnL!=0]
         if (np.isnan(np.mean(df.Return)) or np.isnan(np.std(df.Return))): # if missing 
-            return {'strategy_sharpe':None,'num_trades':None,'position_df':None}
+            return {'strategy_sharpe':None,'strategy_tot_return':None,'num_trades':None,'position_df':None}
         elif ((np.std(df.Return))==0): # if only one round trip trade
-            return {'strategy_sharpe':np.mean(df.Return),'num_trades':len(df),'position_df':df}
+            return {'strategy_sharpe':np.mean(df.Return),'strategy_tot_return':np.sum(df.Return),'num_trades':len(df),'position_df':df}
         else:
-            return {'strategy_sharpe':(np.mean(df.Return)/np.std(df.Return)),'num_trades':len(df),'position_df':df}         
+            return {'strategy_sharpe':(np.mean(df.Return)/np.std(df.Return)),'strategy_tot_return':np.sum(df.Return),'num_trades':len(df),'position_df':df}         
     except:
-        return {'strategy_sharpe':None,'num_trades':None,'position_df':None}
+        return {'strategy_sharpe':None,'strategy_tot_return':None,'num_trades':None,'position_df':None}
